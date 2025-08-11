@@ -37,7 +37,7 @@ The possible options for ``{dataset}`` are:
 The value of ``{similaritygraph}`` can be any of the following: 
 - fcn-rbf-{variance}
 - fcn-lpl-{variance}
-- fcn-inv
+- fcn-inv-{power}-{epsilon}
 - knn{valueofk}
 - sparsifier-clus-{gamma}
 - sparsifier-spec-{kernelval}-{epsilon}
