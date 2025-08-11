@@ -1,0 +1,185 @@
+datasets:
+
+##################
+# BSDS EXPERIMENTS
+##################
+  bsds:
+# # RBF Kernel
+#   - name: 01_0_FCN_rbf
+#     sim_graph: fcn-rbf-10
+#   - name: 01_1_FCN_rbf
+#     sim_graph: fcn-rbf-20
+#   - name: 01_2_FCN_rbf
+#     sim_graph: fcn-rbf-50
+#   - name: 01_3_FCN_rbf
+#     sim_graph: fcn-rbf-100
+#   - name: 01_4_FCN_rbf
+#     sim_graph: fcn-rbf-200
+#   - name: 01_5_FCN_rbf
+#     sim_graph: fcn-rbf-5
+#   - name: 01_6_FCN_rbf
+#     sim_graph: fcn-rbf-0.5
+# # Laplacian Kernel
+#   - name: 02_0_FCN_laplacian
+#     sim_graph: fcn-lpl-20
+#   - name: 02_1_FCN_laplacian
+#     sim_graph: fcn-lpl-50
+#   - name: 02_2_FCN_laplacian
+#     sim_graph: fcn-lpl-10
+#   - name: 02_3_FCN_laplacian
+#     sim_graph: fcn-lpl-30
+#   - name: 02_4_FCN_laplacian
+#     sim_graph: fcn-lpl-40
+# # Inverse euclidean kernel : power-epsilon
+#   - name: 03_0_FCN_inverse_euclid
+#     sim_graph: fcn-inv-1-1
+#   - name: 03_1_FCN_inverse_euclid
+#     sim_graph: fcn-inv-3-1
+#   - name: 03_2_FCN_inverse_euclid
+#     sim_graph: fcn-inv-5-1
+#   - name: 03_3_FCN_inverse_euclid
+#     sim_graph: fcn-inv-7-1
+#   - name: 03_4_FCN_inverse_euclid
+#     sim_graph: fcn-inv-10-1
+# # Inv euclidean with power 1 and different epsilons
+#   - name: 03_5_FCN_inverse_euclid
+#     sim_graph: fcn-inv-1-0.1
+#   - name: 03_6_FCN_inverse_euclid
+#     sim_graph: fcn-inv-1-0.25
+#   - name: 03_7_FCN_inverse_euclid
+#     sim_graph: fcn-inv-1-0.5
+#   - name: 03_8_FCN_inverse_euclid
+#     sim_graph: fcn-inv-1-0.75
+# # KNN graph
+#   - name: KNN_5
+#     sim_graph: knn5
+#   - name: KNN_10
+#     sim_graph: knn10
+#   - name: KNN_20
+#     sim_graph: knn20
+#   - name: KNN_30
+#     sim_graph: knn30spar
+#   - name: KNN_3
+#     sim_graph: knn3
+#   - name: KNN_15
+#     sim_graph: knn15
+#   - name: KNN_25
+#     sim_graph: knn25
+# Spectral Sparsifier Experiments
+  # - name: SPA_SPEC_01
+  #   sim_graph: sparsifier-spec-0.001-0.5
+  # - name: SPA_SPEC_02
+  #   sim_graph: sparsifier-spec-0.001-0.4
+  # - name: SPA_SPEC_03
+  #   sim_graph: sparsifier-spec-0.001-0.3
+  # - name: SPA_SPEC_04
+  #   sim_graph: sparsifier-spec-0.001-0.2
+  # - name: SPA_SPEC_05
+  #   sim_graph: sparsifier-spec-0.001-0.1
+  # - name: SPA_SPEC_06
+  #   sim_graph: sparsifier-spec-0.001-0.075
+  # - name: SPA_SPEC_07
+  #   sim_graph: sparsifier-spec-0.001-0.05
+# # Cluster Preserving Sparsifier
+  - name: SPA_CLUS_001
+    sim_graph: sparsifier-clus-0.001
+  - name: SPA_CLUS_005
+    sim_graph: sparsifier-clus-0.005
+  - name: SPA_CLUS_0001
+    sim_graph: sparsifier-clus-0.0001
+  - name: SPA_CLUS_00001
+    sim_graph: sparsifier-clus-0.00001
+
+
+
+
+
+
+# ##################
+# # MNIST EXPERIMENTS
+# ##################
+#   mnist:  
+#   # - name: KNN_2
+#   #   sim_graph: knn2
+#   # - name: KNN_3
+#   #   sim_graph: knn3
+#   # - name: KNN_4
+#   #   sim_graph: knn4
+#   # - name: KNN_5
+#   #   sim_graph: knn5
+#   # - name: KNN_6
+#   #   sim_graph: knn6
+#   # - name: KNN_7
+#   #   sim_graph: knn7
+#   # - name: KNN_8
+#   #   sim_graph: knn8
+#   # - name: KNN_9
+#   #   sim_graph: knn9
+#   # - name: KNN_10
+#   #   sim_graph: knn10
+#   # - name: KNN_11
+#   #   sim_graph: knn11
+#   # - name: KNN_12
+#   #   sim_graph: knn12
+#   # - name: KNN_13
+#   #   sim_graph: knn13
+#   # - name: KNN_14
+#   #   sim_graph: knn14
+#   # - name: KNN_15
+#   #   sim_graph: knn15
+#   # - name: KNN_16
+#   #   sim_graph: knn16
+#   # - name: KNN_17
+#   #   sim_graph: knn17
+#   # - name: KNN_18
+#   #   sim_graph: knn18
+#   # - name: KNN_19
+#   #   sim_graph: knn19
+#   # - name: KNN_20
+#   #   sim_graph: knn20
+#   # - name: KNN_21
+#   #   sim_graph: knn21
+#   # - name: KNN_22
+#   #   sim_graph: knn22
+#   # - name: KNN_23
+#   #   sim_graph: knn23
+#   # - name: KNN_24
+#   #   sim_graph: knn24
+#   # - name: KNN_25
+#   #   sim_graph: knn25
+#   # - name: KNN_26
+#   #   sim_graph: knn26
+#   # - name: KNN_27
+#   #   sim_graph: knn27
+#   # - name: KNN_28
+#   #   sim_graph: knn28
+#   # - name: KNN_29
+#   #   sim_graph: knn29
+#   # - name: KNN_30
+#   #   sim_graph: knn30
+#   # - name: SPA_SPEC_01
+#   #   sim_graph: sparsifier-spec-0.001-0.5
+#   # - name: SPA_SPEC_02
+#   #   sim_graph: sparsifier-spec-0.001-0.4
+#   # - name: SPA_SPEC_03
+#   #   sim_graph: sparsifier-spec-0.001-0.3
+#   # - name: SPA_SPEC_04
+#   #   sim_graph: sparsifier-spec-0.001-0.2
+#   - name: SPA_SPEC_05
+#     sim_graph: sparsifier-spec-0.001-0.1
+#   - name: SPA_SPEC_06
+#     sim_graph: sparsifier-spec-0.001-0.075
+#   - name: SPA_SPEC_07
+#     sim_graph: sparsifier-spec-0.001-0.05
+#   - name: SPA_SPEC_08
+#     sim_graph: sparsifier-spec-0.001-0.025
+  # - name: SPA_CLUS_001
+  #   sim_graph: sparsifier-clus-0.001
+  # - name: SPA_CLUS_005
+  #   sim_graph: sparsifier-clus-0.005
+  # - name: SPA_CLUS_0001
+  #   sim_graph: sparsifier-clus-0.0001
+  # - name: SPA_CLUS_00001
+  #   sim_graph: sparsifier-clus-0.00001
+
+  # usps:   *common_experiments

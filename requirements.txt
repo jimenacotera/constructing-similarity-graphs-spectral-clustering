@@ -1,0 +1,13 @@
+scipy
+sgtl>=0.5.0
+pytest
+numpy
+matplotlib
+keras
+tensorflow
+networkx
+pandas
+scikit-image
+h5py
+scikit-learn
+stag
