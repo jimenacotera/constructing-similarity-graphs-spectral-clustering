@@ -82,14 +82,14 @@ class Dataset(object):
         Get average degree of similarity graph
         None -> Float
         '''
-        print("[DEBUG] usign custom avg deg funciton")
+        #print("[DEBUG] usign custom avg deg funciton")
         if self.graph is None:
             return 0
         elif self.graph_type.startswith("sparsifier-clus"): 
             # deg = self.graph.degree_matrix() #stag.utility.SprsMat
             # return deg.to_scipy().tocsr().diagonal().mean()
             #return self.graph.average_degree() #uses STAG's average degree method
-            print("[DEBUG] numdatapoints", self.num_data_points)
+            #print("[DEBUG] numdatapoints", self.num_data_points)
 
             # vertices = numpy.ndarray(shape = self.num_data_points, dtype = int)
             degs = [self.graph.degree_unweighted(i) for i in range(self.num_data_points)]
@@ -128,7 +128,7 @@ class Dataset(object):
         :param graph_file: (optional) the file containing the edgelist of the graph to load.
         :param graph_type: (optional) if there is no edgelist, the type of graph to be constructed.
         """
-        print("[DEBUG] in super load_graph")
+        #print("[DEBUG] in super load_graph")
         if graph_file is not None:
             print(f"Loading edgelist graph for the {self.__class__.__name__} from {graph_file}...")
             self.graph = sgtl.graph.from_edgelist(graph_file, num_vertices=self.num_data_points)
@@ -145,12 +145,12 @@ class Dataset(object):
                 # self.graph = similaritygraphs.graph.fullyConnected(data=self.raw_data, kernelName="rbf", variance=20)
                 # self.graph = similaritygraphs.graph.fullyConnected(data=self.raw_data, kernelName=graph_type[4:], variance=30)
                 self.graph = similaritygraphs.graph.fullyConnected(data=self.raw_data, kernelName=graph_type[4:])
-                print("[DEBUG] fresh graph type: ", type(self.graph))
-                print("[DEBUG] done constructing graph")
+                #print("[DEBUG] fresh graph type: ", type(self.graph))
+                #print("[DEBUG] done constructing graph")
             elif graph_type[:3] == "spa": 
                 logger.info(f"Constructing sparsifier for {self}...")
                 if graph_type.startswith("sparsifier-spec"):
-                    print(graph_type)
+                    #print(graph_type)
                     #self.graph = similaritygraphs.graph.spectralSparsifier_multiprocessing(data=self.raw_data, graph_type=graph_type[16:])
                     self.graph = similaritygraphs.graph.spectralSparsifier(data=self.raw_data, graph_type=graph_type[16:])
                 # self.graph = similaritygraphs.graph.fullyConnected(data=self.raw_data, kernelName="inv-1-0.25")
@@ -168,17 +168,17 @@ class Dataset(object):
                 #     arr = numpy.array(g.adjacency())
                 #     self.graph = sgtl.Graph(arr)
                 elif graph_type.startswith("sparsifier-clus"):
-                    print("Creating dataset for cluster preserving sparsifier")
+                    #print("Creating dataset for cluster preserving sparsifier")
                     # Parameter for similarity kernel for Cluster Preserving Sparsifier
                     # build the clu-pres sparsifier
                     gamma = float(self.graph_type[16:])
-                    print("1 building dense mat")
+                    #print("1 building dense mat")
                     data_dense = utility.DenseMat(self.raw_data)
-                    print("2 building approx sim graph with gamma: ", gamma)
+                    #print("2 building approx sim graph with gamma: ", gamma)
                     self.graph = cluster.approximate_similarity_graph(data_dense, a = gamma)
-                    print("3 done with that")
-                    print(self.graph.is_connected())
-                    #print("[DEBUG] graph number of vertices", self.graph.number_of_vertices())
+                    #print("3 done with that")
+                    #print(self.graph.is_connected())
+                    ##print("[DEBUG] graph number of vertices", self.graph.number_of_vertices())
                     #debug
                     #print(self.getAverageDegree())
                     
@@ -192,7 +192,7 @@ class Dataset(object):
         :param graph_filename: the name of the file to save the graph to
         :param graph_type: which type of graph to construct from the data
         """
-        print("[DEBUG] in Dataset.construct and save graph")
+        #print("[DEBUG] in Dataset.construct and save graph")
         # Construct the graph
         self.load_graph(graph_file=None, graph_type=graph_type)
 
@@ -221,7 +221,7 @@ class MnistDataset(Dataset):
         :param downsample: Set to an integer to downsample each image to an n * n image after normalisation.
         """
         self.downsample = downsample
-        print("[DEBUG] self.downsample is set to ", self.downsample)
+        #print("[DEBUG] self.downsample is set to ", self.downsample)
         # self.k = k
         self.graph = None
         self.graph_type = graph_type
@@ -243,7 +243,7 @@ class MnistDataset(Dataset):
 
     def load_graph(self, *args, **kwargs):
         super(MnistDataset, self).load_graph(*args, **kwargs)
-        # print("[DEBUG] adj mat shape ", self.graph.adj_mat.shape)
+        # #print("[DEBUG] adj mat shape ", self.graph.adj_mat.shape)
         # Add orthogonal edges 
         logger.info(f"Adding grid graph to image graph for {self}...")
         # data_points = self.data_dimensions[0] * self.data_dimensions[1]
@@ -275,10 +275,10 @@ class MnistDataset(Dataset):
                 self.raw_data = self.raw_data / 255
 
             self.data_dimensions = self.raw_data.shape
-            print("[DEBUG]: self.data_dimensions: ", self.data_dimensions[0], self.data_dimensions[1])
+            #print("[DEBUG]: self.data_dimensions: ", self.data_dimensions[0], self.data_dimensions[1])
             # Set the total number of data points.
             self.num_data_points = len(train_x)
-            print("[DEBUG] self.num_data_points: ", self.num_data_points)
+            #print("[DEBUG] self.num_data_points: ", self.num_data_points)
 
             # TODO: add the test set as well
 
@@ -506,8 +506,8 @@ class BSDSDataset(Dataset):
         # this is to ensure the graph is at least connected
         print(f"Adding grid graph to image graph for {self}...")
         grid_graph_adj_mat = sp.sparse.lil_matrix((self.num_data_points, self.num_data_points))
-        print("[DEBUG] self.numdatapoints", self.num_data_points)
-        print("[DEBUG] self.downsampleddims", self.downsampled_image_dimensions)
+        #print("[DEBUG] self.numdatapoints", self.num_data_points)
+        #print("[DEBUG] self.downsampleddims", self.downsampled_image_dimensions)
         for x in range(self.downsampled_image_dimensions[0]):
             for y in range(self.downsampled_image_dimensions[1]):
                 this_data_point = x * self.downsampled_image_dimensions[1] + y
@@ -631,7 +631,7 @@ class BSDSDatasetSparsifier(Dataset):
     #     Get average degree of similarity graph
     #     None -> Float
     #     '''
-    #     print("[DEBUG] usign custom avg deg funciton")
+    #     #print("[DEBUG] usign custom avg deg funciton")
     #     if self.graph is None:
     #         return 0
     #     elif self.graph_type.startswith("sparsifier-clus"): 
@@ -735,7 +735,7 @@ class BSDSDatasetSparsifier(Dataset):
 
 
         if self.graph_type.startswith("sparsifier-clus"):
-            print("[DEBUG] DONWSAMPLNG CLUS WATCHOUT")
+            #print("[DEBUG] DONWSAMPLNG CLUS WATCHOUT")
         #Compute the downsample factor if needed
             if self.downsample_factor is None:
                 current_num_vertices = self.original_image_dimensions[0] * self.original_image_dimensions[1]

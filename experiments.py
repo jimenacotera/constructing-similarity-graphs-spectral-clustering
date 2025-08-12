@@ -77,7 +77,7 @@ def basic_experiment(dataset, num_clusters):
     rand_score = 0
     # Get all of the data from the subprocesses
     while not q.empty():
-        print("[DEBUG] in basic_experiment loop - segmentation ran one time at least")
+        #print("[DEBUG] in basic_experiment loop - segmentation ran one time at least")
         num_vectors, this_rand_sc, this_mut_info, this_conductance, this_time = q.get()
         rand_score = this_rand_sc
         mutual_info[num_vectors] = this_mut_info
@@ -112,16 +112,16 @@ def basic_experiment_no_multiprocessing(dataset, num_clusters):
     if dataset.graph_type.startswith("sparsifier-clus"):
         # Cluster preserving sparsifier
         all_segmentations = []
-        print("Getting the laplacian for cluster preserving")
+        #print("Getting the laplacian for cluster preserving")
         laplacian_matrix = dataset.graph.normalised_laplacian().to_scipy()
         _, eigvecs = scipy.sparse.linalg.eigsh(laplacian_matrix, num_eigenvalues, which='SM')
 
-        print(f"Segmenting MNIST into {num_clusters} segments with {num_eigenvalues} eigenvectors.")
+        #print(f"Segmenting MNIST into {num_clusters} segments with {num_eigenvalues} eigenvectors.")
         found_clusters = pysc.sc.sc_precomputed_eigenvectors(eigvecs, num_clusters=num_clusters, num_eigenvectors=num_eigenvalues)
         all_segmentations.append(found_clusters)
         this_rand_score = pysc.evaluation.adjusted_rand_index(dataset.gt_labels, found_clusters)
 
-        print("ARI ", this_rand_score)
+        #print("ARI ", this_rand_score)
         
 
     else: 
@@ -154,7 +154,7 @@ def run_mnist_experiment(graph_type):
     # Run experiment
     downsample = 14
     dataset =  pysc.datasets.MnistDataset(downsample=downsample, graph_type=graph_type)
-    print("[DEBUG] the graph type in experiments.py is: " , type(dataset.graph))
+    #print("[DEBUG] the graph type in experiments.py is: " , type(dataset.graph))
 
     start = time.perf_counter()
     # this_rand_scores, this_mut_info, this_conductances, this_times = basic_experiment(dataset=dataset, num_clusters=num_clusters_mnist)
@@ -168,7 +168,7 @@ def run_mnist_experiment(graph_type):
     else : 
         avg_deg = dataset.getAverageDegree()
         
-    print("[DEBUG] avg deg", avg_deg)
+    #print("[DEBUG] avg deg", avg_deg)
     # Write results to csv file
     experiment_stats = {'dataset': 'MNIST'
                         , 'ARI': this_rand_scores
@@ -181,7 +181,7 @@ def run_mnist_experiment(graph_type):
     
     output_filename = output_filename = "results/mnist/results.csv"
 
-    print("[DEBUG] ARI score", this_rand_scores )
+    #print("[DEBUG] ARI score", this_rand_scores )
 
     # Read existing CSV 
     if os.path.exists(output_filename):
@@ -355,18 +355,18 @@ def segment_bsds_image(bsds_dataset, num_segments, num_eigenvectors_l):
     """
     all_segmentations = []
 
-    print("Computing eigenvectors ...")
+    #print("Computing eigenvectors ...")
     # First, compute all of the eigenvectors up front 
     if bsds_dataset.graph_type.startswith("sparsifier-clus"):
         # Cluster preserving sparsifier
-        print("Getting the laplacian for cluster preserving")
+        #print("Getting the laplacian for cluster preserving")
         laplacian_matrix = bsds_dataset.graph.normalised_laplacian().to_scipy()
     else:
         laplacian_matrix = bsds_dataset.graph.normalised_laplacian_matrix()
     _, eigvecs = scipy.sparse.linalg.eigsh(laplacian_matrix, max(num_eigenvectors_l), which='SM')
     # _, eigvecs = scipy.sparse.linalg.eigsh(laplacian_matrix, num_eigenvectors_l, which='SM')
 
-    print(f"Segmenting {bsds_dataset} into {num_segments} segments with {num_eigenvectors_l} eigenvectors.")
+    #print(f"Segmenting {bsds_dataset} into {num_segments} segments with {num_eigenvectors_l} eigenvectors.")
     found_clusters = pysc.sc.sc_precomputed_eigenvectors(eigvecs, num_segments, num_eigenvectors_l[0])
     all_segmentations.append(found_clusters)
 
@@ -488,7 +488,7 @@ def run_bsds_experiment(graph_type, image_id=None):
     for i, file in enumerate(image_files):
         
         id = file.split(".")[0]
-        print(f"Running BSDS experiment with image {file}. (Image {i+1}/{len(image_files)})")
+        #print(f"Running BSDS experiment with image {file}. (Image {i+1}/{len(image_files)})")
         k = get_bsd_num_cluster(os.path.join(ground_truth_directory, f"{id}.mat"))
         
         start = time.perf_counter()
@@ -508,8 +508,8 @@ def run_bsds_experiment(graph_type, image_id=None):
             avg_degree = int(graph_type[3:])
         else : 
             avg_degree = dataset.getAverageDegree()
-        # print("[DEBUG]avg degree: " , avg_degree)
-        print("about to segment image")
+        # #print("[DEBUG]avg degree: " , avg_degree)
+        #print("about to segment image")
         segmentations = segment_bsds_image(dataset, k, num_eigenvectors_l)
 
         # Record segmentation time and graph size

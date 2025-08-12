@@ -141,7 +141,7 @@ def fullyConnected(data, kernelName, threshold=0.1):
     # Neighbours closer than max_distance from given threshold
     distances, neighbours = NearestNeighbors(radius=max_distance).fit(data).radius_neighbors(data)
 
-    print("[DEBUG] in graph.fullyConnected - data dimensions are ", data.shape)
+    #print("[DEBUG] in graph.fullyConnected - data dimensions are ", data.shape)
     # Construct the adjacency matrix of the graph iteratively
     adj_mat = scipy.sparse.lil_matrix((data.shape[0], data.shape[0]), dtype=np.float32)
     for vertex in range(data.shape[0]):
@@ -162,7 +162,7 @@ def parseKernelName(kernelName):
     """
     Helper to get kernel name and hyperparameters
     """
-    print(kernelName)
+    #print(kernelName)
     if kernelName[:3] == "rbf":
         return rbf, float(kernelName[4:])
     elif kernelName[:3] == "lpl":
@@ -253,10 +253,10 @@ def spectralSparsifier(data, graph_type):
     # empty adjacency matrix
     adj_mat = scipy.sparse.lil_matrix((data.shape[0], data.shape[0]), dtype=np.float32)
     
-    print("[spectral sparsifier] starting sampling")
-    print("[DEBUG] n", n)
-    print("[DEBUG] times", times)
-    print("[DEBUG] eps", eps)
+    #print("[spectral sparsifier] starting sampling")
+    #print("[DEBUG] n", n)
+    #print("[DEBUG] times", times)
+    #print("[DEBUG] eps", eps)
 
     # counter = 0
     for time in range(times):
@@ -279,12 +279,8 @@ def spectralSparsifier(data, graph_type):
         adj_mat[j,i] += weight
         # counter += 2
 
-        # Debugging
-        if(time%10000 == 0):
-            print(time)
-        # / Debugging
 
-    print("[spectral sparsifier] Done with spectral sparsifier...")
+    #print("[spectral sparsifier] Done with spectral sparsifier...")
     
     return Graph(adj_mat)
 
@@ -316,12 +312,12 @@ def spectralSparsifier_multiprocessing(data, graph_type):
     prob_dist = raw_probs / raw_probs.sum()
 
     total_iters = int(math.log(n) * (eps**-2))
-    print("[DEBUG] total iters", total_iters)
+    #print("[DEBUG] total iters", total_iters)
     num_cpus = min(max_cpus, cpu_count() or 1)
-    print("[DEBUG] num cpus is: ", num_cpus)
+    #print("[DEBUG] num cpus is: ", num_cpus)
     base, rem = divmod(total_iters,num_cpus)
     iters_per_cpu = [base + (1 if i<rem else 0) for i in range(num_cpus)]
-    print("[DEBUG] iters per CPU", iters_per_cpu)
+    #print("[DEBUG] iters per CPU", iters_per_cpu)
 
     vector = np.random.default_rng().standard_normal(d)
 
@@ -372,12 +368,12 @@ def spectralSparsifier_multiprocessing_helper(args):
     # empty adjacency matrix
     adj_mat = scipy.sparse.lil_matrix((data.shape[0], data.shape[0]), dtype=np.float32)
     # Repeat (n logn eps^-2) times
-    print("[spectral sparsifier] starting sampling")
+    #print("[spectral sparsifier] starting sampling")
     # times = int(n * math.log(n) * (eps**(-2)))
     times = n
-    print("[DEBUG] n", n)
-    print("[DEBUG] times", times)
-    print("[DEBUG] eps", eps)
+    #print("[DEBUG] n", n)
+    #print("[DEBUG] times", times)
+    #print("[DEBUG] eps", eps)
 
     sampler = np.random.default_rng()
 
@@ -408,8 +404,8 @@ def spectralSparsifier_multiprocessing_helper(args):
         #     print(time)
         # / Debugging
 
-    print("[spectral sparsifier] Done with spectral sparsifier...")
-    print("[DEBUG] should have # edges before orthog:", counter)
+    #print("[spectral sparsifier] Done with spectral sparsifier...")
+    #print("[DEBUG] should have # edges before orthog:", counter)
     # return Graph(adj_mat)
     return adj_mat
 

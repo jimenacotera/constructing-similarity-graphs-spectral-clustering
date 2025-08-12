@@ -158,7 +158,7 @@ def analyse_bsds_results(split: str = "test") -> None:
             matching_rows = stats_df.loc[stats_df['image'] == int(img_id), ['duration', 'graphSize', 'averageDegree']]
             
             if not matching_rows.empty:
-                print("Found runtime duration for image")
+                #print("Found runtime duration for image")
                 row = matching_rows.iloc[0]
                 runtime_duration = row['duration']
                 graph_size = row['graphSize']
@@ -185,7 +185,7 @@ def analyse_bsds_results(split: str = "test") -> None:
                     graph_size,
                     avg_deg              
                 ])
-    print(f" [Evaluation saved] to {out_csv}")
+    #print(f" [Evaluation saved] to {out_csv}")
 
 
 
@@ -226,7 +226,7 @@ def export_groundtruth_visualisation(img_id) -> None:
         plt.savefig(save_path, dpi=150, bbox_inches="tight")
         plt.close()
 
-        print(f" [saved - Ground Truth] {_friendly_save_msg(save_path)}")
+        #print(f" [saved - Ground Truth] {_friendly_save_msg(save_path)}")
 
     # plt.subplot(1, ncols, 1)
     # plt.imshow(image)
@@ -357,7 +357,7 @@ def compare_segmentations(img_id: str,
     if save_path is not None:
         save_path.parent.mkdir(parents=True, exist_ok=True)
         plt.savefig(save_path, dpi=150, bbox_inches="tight")
-        print(f" [saved] {_friendly_save_msg(save_path)}")
+        #print(f" [saved] {_friendly_save_msg(save_path)}")
 
     if show:
         plt.show()
@@ -383,7 +383,7 @@ def export_visualisations(seg_dir: Path = Path("results/bsds/segs"),
                               show=False)
         #Generate ground truth visualisation 
         export_groundtruth_visualisation(img_id)
-    print(f" [Visualisations saved] to {_friendly_save_msg(out_dir / experiment_name)}")
+    #print(f" [Visualisations saved] to {_friendly_save_msg(out_dir / experiment_name)}")
 
 
 def parse_args():
